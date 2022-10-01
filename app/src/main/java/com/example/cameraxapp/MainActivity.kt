@@ -27,6 +27,7 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import android.graphics.*
 import android.widget.ImageView
+import android.widget.TextView
 import java.io.ByteArrayOutputStream
 import androidx.core.content.PermissionChecker
 import com.example.cameraxapp.databinding.ActivityMainBinding
@@ -60,7 +61,6 @@ class MainActivity : AppCompatActivity() {
         // Set up the listeners for take photo and video capture buttons
         viewBinding.imageCaptureButton.setOnClickListener { takePhoto() }
         cameraExecutor = Executors.newSingleThreadExecutor()
-
     }
 
     private fun takePhoto() {
@@ -76,12 +76,15 @@ class MainActivity : AppCompatActivity() {
                 override fun onCaptureSuccess(imageProxy: ImageProxy) {
                     val image = imageProxy.image?.toBitmap()
                     val bmp = image?.rotate(90F)
-                    val scaled_bmp = bmp?.let {
+                    val scaledBmp = bmp?.let {
                         Bitmap.createScaledBitmap(it, 224, 224, false) }
                     // do stuff here
                     imageProxy.close()
-                    val msg = "Photo capture succeeded"
+                    val msg = "Performing inference"
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                    var result = scaledBmp?.let { classifier.classifyImage(it) }
+                    val predictText = findViewById<TextView>(R.id.predictedTextView)
+                    predictText.text = result
                 }
             }
         )
