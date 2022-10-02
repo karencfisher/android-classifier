@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
+        classifier = Classifier(assets)
+
         // Set up the listeners for take photo and video capture buttons
         viewBinding.imageCaptureButton.setOnClickListener { takePhoto() }
         cameraExecutor = Executors.newSingleThreadExecutor()

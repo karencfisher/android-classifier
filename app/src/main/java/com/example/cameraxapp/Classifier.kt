@@ -11,6 +11,7 @@ import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class Classifier(assetManager: AssetManager) {
@@ -20,6 +21,8 @@ class Classifier(assetManager: AssetManager) {
     private val PIXEL_SIZE = 3
     private val IMAGE_MEAN = 0
     private val IMAGE_STD = 255.0F
+    private val modelPath: String = "CatsVsDogs.tflite"
+    private val labelPath: String = "label.txt"
 
     init {
         val options = Interpreter.Options()
@@ -47,7 +50,8 @@ class Classifier(assetManager: AssetManager) {
         val resultArray = Array(1) { FloatArray(labelList.size)}
         interpreter.run(byteBuffer, resultArray)
         var index = getMaxResult(resultArray[0])
-        return "Prediction is ${labelList[index]}"
+        var probability: Float = resultArray[0][index] * 100.0F
+        return "Prediction is ${labelList[index]}, ${probability.roundToInt()}% probability"
     }
 
     private fun convertBitmapToByteBuffer(bitmap: Bitmap): ByteBuffer {
