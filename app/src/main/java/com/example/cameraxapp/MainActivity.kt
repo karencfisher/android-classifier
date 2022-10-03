@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun captureButton() {
         if (inferFlag) {
+            // restore to previewing mode
             val staticImage = findViewById<ImageView>(R.id.stillImage)
             staticImage.visibility = View.INVISIBLE
             val predictText = findViewById<TextView>(R.id.predictedTextView)
@@ -81,8 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             takePhoto()
-            val capButton = findViewById<Button>(R.id.image_capture_button)
-            capButton.text = "got it!"
             inferFlag = true
         }
     }
@@ -98,20 +97,24 @@ class MainActivity : AppCompatActivity() {
 
                 @SuppressLint("UnsafeOptInUsageError")
                 override fun onCaptureSuccess(imageProxy: ImageProxy) {
+                    // grab and scale image
                     val image = imageProxy.image?.toBitmap()
                     val bmp = image?.rotate(90F)
                     val scaledBmp = bmp?.let {
                         Bitmap.createScaledBitmap(it, 224, 224, false) }
-                    // do stuff here
                     imageProxy.close()
-                    val msg = "Performing inference"
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+
+                    // inference
                     var result = scaledBmp?.let { classifier.classifyImage(it) }
+
+                    // display results as static image and caption
                     val predictText = findViewById<TextView>(R.id.predictedTextView)
                     predictText.text = result
                     val staticImage = findViewById<ImageView>(R.id.stillImage)
                     staticImage.setImageBitmap(bmp)
                     staticImage.visibility = View.VISIBLE
+                    val capButton = findViewById<Button>(R.id.image_capture_button)
+                    capButton.text = "got it!"
                 }
             }
         )
