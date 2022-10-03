@@ -18,3 +18,5 @@ class Classifier(assetManager: AssetManager) {
     private val labelPath: String = "label.txt"
 ```
 
+The base model used here is mobilenet_v2 (from the Tensorflow Hub), module handle https://tfhub.dev/google/tf2-preview/{}/feature_vector/4, and assumes image input shape of 224 x 224, scaled pixel values to 0 to 1.
+
