@@ -3,7 +3,7 @@ First attempt to deploy an image classifier on Android device
 
 ![Screenshot](Screenshot.jpg)
 
-This project is to go through the basic process from building an image classifier using transfer learning, convert the trained model to Tensorflow Lite format, and then deploy the model for inference on a mobile device. For me this is a learning process, also, in building an Android application in Kotlin, on Android Studio. This entailed using the CameraX API, obtain permissions to use the device's camera, and to preview and capture an image for use in inferences by the model.
+This project is to go through the basic process from building an image classifier using transfer learning, convert the trained model to Tensorflow Lite format, and then deploy the model for inference on a mobile device. It is intended as a prototype for developing image classification apps. For me this is a learning process, also, in building an Android application in Kotlin, on Android Studio. This entailed using the CameraX API, obtain permissions to use the device's camera, and to preview and capture an image for use in inferences by the model.
 
 Looking at a couple of examples of real time inference using the devices camera, they made predictions asynchronously/continuously. This is not what I wanted. My preference instead is to get a subject in the camera frame, and touch a button to make an inference on that image. So to accomplish this I used the image capture use case with CameraX instead of the analyze use case. I capture an image into a buffer, preprocess the captured image (scaling, reformatting bitmap to expected 3d array of pixel values, and normalizing), and run it through the classifier.
 
