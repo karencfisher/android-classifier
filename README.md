@@ -7,6 +7,8 @@ This project is to go through the basic process from building an image classifie
 
 Looking at a couple of examples of real time inference using the devices camera, they made predictions asynchronously/continuously. This is not what I wanted. My preference instead is to get a subject in the camera frame, and touch a button to make an inference on that image. So to accomplish this I used the image capture use case with CameraX instead of the analyze use case. I capture an image into a buffer, preprocess the captured image (scaling, reformatting bitmap to expected 3d array of pixel values, and normalizing), and run it through the classifier.
 
+Initially, the app is in preview mode. Get what you want to classify and touch the "WHAT AM I?" button to perform inference. The app will then be in a static image mode displaying the captured image and the prediction from the model. Touch "GOT IT!" to dismiss the current capture and resume to preview mode. Note: images are not stored on the device.
+
 To use perhaps a more useful model (i.e., do more than classifying everything as either a cat or a dog), one should simply be able replace the tflite model file and the accompanying text file containing the labels in the assets directory, and (at this point) modify two lines in the Classifier class (classifier.kt) definition as necessary.
 
 ```
