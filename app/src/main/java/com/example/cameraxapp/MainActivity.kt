@@ -26,6 +26,8 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import android.graphics.*
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import java.io.ByteArrayOutputStream
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
 
+    private var inferFlag: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,8 +65,26 @@ class MainActivity : AppCompatActivity() {
         classifier = Classifier(assets)
 
         // Set up the listeners for take photo and video capture buttons
-        viewBinding.imageCaptureButton.setOnClickListener { takePhoto() }
+        viewBinding.imageCaptureButton.setOnClickListener { captureButton() }
         cameraExecutor = Executors.newSingleThreadExecutor()
+    }
+
+    private fun captureButton() {
+        if (inferFlag) {
+            val staticImage = findViewById<ImageView>(R.id.stillImage)
+            staticImage.visibility = View.INVISIBLE
+            val predictText = findViewById<TextView>(R.id.predictedTextView)
+            predictText.text = ""
+            val capButton = findViewById<Button>(R.id.image_capture_button)
+            capButton.text = "what am I?"
+            inferFlag = false
+        }
+        else {
+            takePhoto()
+            val capButton = findViewById<Button>(R.id.image_capture_button)
+            capButton.text = "got it!"
+            inferFlag = true
+        }
     }
 
     private fun takePhoto() {
@@ -87,6 +109,9 @@ class MainActivity : AppCompatActivity() {
                     var result = scaledBmp?.let { classifier.classifyImage(it) }
                     val predictText = findViewById<TextView>(R.id.predictedTextView)
                     predictText.text = result
+                    val staticImage = findViewById<ImageView>(R.id.stillImage)
+                    staticImage.setImageBitmap(bmp)
+                    staticImage.visibility = View.VISIBLE
                 }
             }
         )
