@@ -1,6 +1,14 @@
 # android-classifier
 First attempt to deploy an image classifier on Android device
 
+### Update!
+
+![Screenshot](Screenshot3.jpg) ![Screenshot](Screenshot4.jpg)
+
+Now integrated a model trained on the Oxford Pet data set (https://www.robots.ox.ac.uk/~vgg/data/pets/), to discern breeds of cats and dogs. A little more interesting perhaps.
+
+
+
 ![Screenshot](Screenshot.jpg) ![Screenshot](Screenshot2.jpg)
 
 This project is to go through the basic process from building an image classifier using transfer learning, convert the trained model to Tensorflow Lite format, and then deploy the model for inference on a mobile device. While it at present serves the lofty purpose of distinguishing between cats and dogs (possibly of use for aliens not familiar with our habit of keeping pets), it is intended as a prototype for developing image classification apps. For me this is a learning process, also, in building an Android application in Kotlin, on Android Studio. This entailed using the CameraX API, obtain permissions to use the device's camera, and to preview and capture an image for use in inferences by the model.
