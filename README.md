@@ -9,7 +9,12 @@ Now integrated a model trained on the Oxford Pet data set (https://www.robots.ox
 
 All it took was to point to the new tflite model and the corresponding text file containing the labels. There are 37 labels identifying varieties of cats and dogs.
 
-
+```
+class Classifier(assetManager: AssetManager) {
+    //...
+    private val modelPath: String = "OxfordPets.tflite"
+    private val labelPath: String = "oxford_labels.txt"
+```
 
 ![Screenshot](Screenshot.jpg) ![Screenshot](Screenshot2.jpg)
 
