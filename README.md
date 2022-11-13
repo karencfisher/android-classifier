@@ -7,6 +7,8 @@ First attempt to deploy an image classifier on Android device
 
 Now integrated a model trained on the Oxford Pet data set (https://www.robots.ox.ac.uk/~vgg/data/pets/), to discern breeds of cats and dogs. A little more interesting perhaps.
 
+All it took was to point to the new tflite model and the corresponding text file containing the labels. There are 37 labels identifying varieties of cats and dogs.
+
 
 
 ![Screenshot](Screenshot.jpg) ![Screenshot](Screenshot2.jpg)
