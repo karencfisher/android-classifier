@@ -1,4 +1,4 @@
-# android-classifier
+# Pet Classifier
 First attempt to deploy an image classifier on Android device
 
 ### Update!
