@@ -21,8 +21,8 @@ class Classifier(assetManager: AssetManager) {
     private val PIXEL_SIZE = 3
     private val IMAGE_MEAN = 0
     private val IMAGE_STD = 255.0F
-    private val modelPath: String = "CatsVsDogs.tflite"
-    private val labelPath: String = "label.txt"
+    private val modelPath: String = "OxfordPets.tflite"
+    private val labelPath: String = "oxford_labels.txt"
 
     init {
         val options = Interpreter.Options()
